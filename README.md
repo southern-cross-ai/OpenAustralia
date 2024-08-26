@@ -28,11 +28,25 @@ Under the directory `OpenAustralia`,
 
   Each file has the same naming convention `[date].[id].html`. For example, `2012-03-21.143.1.html` is from a **house debate** posted on `2012-03-21`, and its ID `143.1` is used to identify its URL.
 
-Notice that the first line of each `.html` file includes its original URL to OpenAustralia, e.g., `<!--https://www.openaustralia.org.au/debate/?id=2017-03-29.89.1-->`.
+Notice that the **first line** of each `.html` file indicates its original URL, e.g., in `senate_debates/2006-02-07.3.1.html`, the first line `<!--https://www.openaustralia.org.au/senate/?id=2006-02-07.3.1-->` indicates it is crawled from `https://www.openaustralia.org.au/senate/?id=2006-02-07.3.1`.
 
 ## Download
 
-For downloading resources from OpenAustralia, we developed Python scripts under `utils` for you to understand how we build URLs, and you can modify the search time range for each debate database.
+To crawl resources from OpenAustralia, we developed Python scripts under `utils` for you to explore and understand how we build URLs and retrieve data.
+
+In `utils/utils.py`, we defined a class `OpenAustralia` which includes the details of how we first collect date entries from a time range, how we build URLs for each date entry, and how we crawl the posts under each data entry.
+
+An example to crawl house debates data from `2021-01-23` to `2023-03-21` and save it to `test` is as follows:g
+```python
+from utils import OpenAustralia
+
+if __name__ == '__main__':
+    oa = OpenAustralia(start_date='2021-01-23',
+                       end_date='2023-03-21',
+                       data_type='house',
+                       save_path='test')
+    oa.retrieve_data()
+```
 
 ## License
 
